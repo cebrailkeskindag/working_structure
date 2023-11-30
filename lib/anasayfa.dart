@@ -11,6 +11,7 @@ class Anasayfa extends StatefulWidget {
 
 class _AnasayfaState extends State<Anasayfa> {
   int sayac = 0;
+  bool kontrol = false;
 
   @override
   //Uygulama açılırken çalışır sonra hiç çalışmaz.
@@ -51,6 +52,37 @@ class _AnasayfaState extends State<Anasayfa> {
                 });
               },
               child: Text("Başla"),
+            ),
+            Visibility(
+                visible: kontrol,
+                child: const Text(
+                    "Merhaba")), //texti duruma göre gizler veya görünür yapar.
+            Text(
+              kontrol ? "Merhaba" : "Güle güle",
+              style: TextStyle(color: kontrol ? Colors.green : Colors.red),
+            ),
+            (() {
+              if (kontrol) {
+                return const Text("Selam", style: TextStyle(color: Colors.green),);
+              } else {
+                return const Text("Görüşürüz", style: TextStyle(color: Colors.red),);
+              }
+            }()),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  kontrol = true;
+                });
+              },
+              child: Text("Durum 1 (True)"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  kontrol = false;
+                });
+              },
+              child: Text("Durum 2 (False)"),
             ),
           ],
         ),
