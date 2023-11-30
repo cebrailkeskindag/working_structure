@@ -21,11 +21,16 @@ class _AnasayfaState extends State<Anasayfa> {
     print("initState() çalıştı.");
   }
 
+  Future<int> toplama(int sayi1, int sayi2) async {
+    int toplam = sayi1 + sayi2;
+    return toplam;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Anasayfa"),
+        title: const Text("Anasayfa"),
       ),
       body: Center(
         child: Column(
@@ -38,7 +43,7 @@ class _AnasayfaState extends State<Anasayfa> {
                   sayac = sayac + 100;
                 });
               },
-              child: Text("Tıkla"),
+              child: const Text("Tıkla"),
             ),
             ElevatedButton(
               onPressed: () {
@@ -51,7 +56,7 @@ class _AnasayfaState extends State<Anasayfa> {
                   print("Anasayfaya dönüldü.");
                 });
               },
-              child: Text("Başla"),
+              child: const Text("Başla"),
             ),
             Visibility(
                 visible: kontrol,
@@ -63,9 +68,15 @@ class _AnasayfaState extends State<Anasayfa> {
             ),
             (() {
               if (kontrol) {
-                return const Text("Selam", style: TextStyle(color: Colors.green),);
+                return const Text(
+                  "Selam",
+                  style: TextStyle(color: Colors.green),
+                );
               } else {
-                return const Text("Görüşürüz", style: TextStyle(color: Colors.red),);
+                return const Text(
+                  "Görüşürüz",
+                  style: TextStyle(color: Colors.red),
+                );
               }
             }()),
             ElevatedButton(
@@ -74,7 +85,7 @@ class _AnasayfaState extends State<Anasayfa> {
                   kontrol = true;
                 });
               },
-              child: Text("Durum 1 (True)"),
+              child: const Text("Durum 1 (True)"),
             ),
             ElevatedButton(
               onPressed: () {
@@ -82,8 +93,21 @@ class _AnasayfaState extends State<Anasayfa> {
                   kontrol = false;
                 });
               },
-              child: Text("Durum 2 (False)"),
+              child: const Text("Durum 2 (False)"),
             ),
+            FutureBuilder<int>(
+              future: toplama(10, 30),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const Text("Hata oluştu.");
+                }
+                if (snapshot.hasData) {
+                  return Text("Sonuç: ${snapshot.data}");
+                } else {
+                  return const Text("Sonuç yok");
+                }
+              },
+            )
           ],
         ),
       ),
